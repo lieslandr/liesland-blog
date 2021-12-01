@@ -1,27 +1,27 @@
 <template>
-  <div class="events">
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+  <div class="posts">
+    <PostCard v-for="post in posts" :key="post.id" :post="post" />
   </div>
 </template>
 
 <script>
-import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
+import PostCard from '@/components/PostCard.vue'
+import PostService from '@/services/PostService.js'
 
 export default {
-  name: 'EventList',
+  name: 'PostList',
   components: {
-    EventCard
+    PostCard
   },
   data() {
     return {
-      events: null
+      posts: null
     }
   },
   created() {
-    EventService.getEvents()
+    PostService.getPosts()
       .then(response => {
-        this.events = response.data
+        this.posts = response.data
       })
       .catch(error => {
         console.log(error)
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style scoped>
-.events {
+.posts {
   display: flex;
   flex-direction: column;
   align-items: center;
