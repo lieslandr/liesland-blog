@@ -1,9 +1,11 @@
 <template>
-  <div class="post-card">
-    <h2 class="post-title"><span v-html="post.title.rendered" /> </h2>
-    <span v-html="post.excerpt.rendered" />
-    <p>Published: {{ post.date}}</p>
-  </div>
+  <router-link class="post-link" :to="{ name: 'PostDetails', params: { id: post.id } }">
+    <div class="post-card">
+      <h2 class="post-title"><span v-html="post.title.rendered" /> </h2>
+      <span v-html="post.excerpt.rendered" />
+      <p>Published: {{post.date}}</p>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -20,7 +22,7 @@ export default {
 <style scoped>
 .post-card {
   padding: 20px;
-  width: 50%;
+  width: 100%;
   cursor: pointer;
   border: 1px solid #39495c;
   margin-bottom: 18px;
@@ -31,6 +33,12 @@ export default {
 .post-card:hover {
   transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.post-link {
+  color: #2c3e50;
+  text-decoration: none;
+  width: 50%;
 }
 
 .post-title {

@@ -1,5 +1,5 @@
 <template>
-  <h1>The Lieslands</h1>
+  <h1><router-link to="/">The Lieslands</router-link></h1>
   <h2>Simply Livin' It Up</h2>
   <div id="app">
     <!--<div id="nav">
