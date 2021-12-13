@@ -36,13 +36,14 @@ export default {
   data() {
     return {
       posts: null,
-      totalPages: 0
+      totalPages: 0,
+      perPage: 5
     }
   },
   created() {
     watchEffect(() => {
       this.posts = null
-      PostService.getPosts(2,this.page)
+      PostService.getPosts(this.perPage,this.page)
         .then(response => {
           this.posts = response.data
           this.totalPages = response.headers['x-wp-totalpages']
