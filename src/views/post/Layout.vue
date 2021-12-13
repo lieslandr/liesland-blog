@@ -1,8 +1,18 @@
 <template>
   <div v-if="post">
     <h1 class="post-title"><span v-html="post.title.rendered" /> </h1>
-    <span v-html="post.content.rendered" />
-    <p>Published: {{ post.date}}</p>
+    
+    <div id="nav">
+      <router-link :to="{ name: 'PostDetails'}"
+        >Details</router-link
+      >
+      |
+      <router-link :to="{ name: 'PostComment'}"
+        >Comment</router-link
+      >
+    </div>
+    
+    <router-view :post="post" />
   </div>
 </template>
 

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PostList from '@/views/PostList.vue'
-import PostDetails from '@/views/PostDetails.vue'
+import PostLayout from '@/views/post/Layout.vue'
+import PostDetails from '@/views/post/Details.vue'
+import PostComment from '@/views/post/Comment.vue'
 import About from '@/views/About.vue'
 
 const routes = [
@@ -10,8 +12,29 @@ const routes = [
     component: PostList,
     props: route => ({page: parseInt(route.query.page) || 1 })
   },
-  {path: '/about', name: 'About', component: About},
-  {path: '/post/:id', name: 'PostDetails', props: true, component: PostDetails}
+  {
+    path: '/post/:id',
+    name: 'PostLayout',
+    props: true,
+    component: PostLayout,
+    children: [
+      {
+        path: '',
+        name: 'PostDetails',
+        component: PostDetails
+      },
+      {
+        path: 'comment',
+        name: 'PostComment',
+        component: PostComment
+      }
+    ]
+  },
+  {
+    path: '/about', 
+    name: 'About', 
+    component: About
+  }
 ]
 
 const router = createRouter({
