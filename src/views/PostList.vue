@@ -48,8 +48,8 @@ export default {
           this.posts = response.data
           this.totalPages = response.headers['x-wp-totalpages']
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
+          this.$router.push({ name: 'NetworkError' })
         })
       })
   },
