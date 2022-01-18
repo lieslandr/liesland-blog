@@ -25,7 +25,6 @@
 <script>
 import PostCard from '@/components/PostCard.vue'
 import PostService from '@/services/PostService.js'
-import {watchEffect} from 'vue'
 
 export default {
   name: 'PostList',
@@ -40,17 +39,16 @@ export default {
       perPage: 5
     }
   },
-  created() {
-    watchEffect(() => {
-      this.posts = null
-      PostService.getPosts(this.perPage,this.page)
-        .then(response => {
-          this.posts = response.data
-          this.totalPages = response.headers['x-wp-totalpages']
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    PostService.getPosts(5, parseInt(routeTo.query.page) || 1)
+      .then(response => {
+        next(comp => {
+          comp.posts = response.data
+          comp.totalPosts = response.headers['x-wp-totalcount']
         })
-        .catch(() => {
-          this.$router.push({ name: 'NetworkError' })
-        })
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' }) 
       })
   },
   computed: {
